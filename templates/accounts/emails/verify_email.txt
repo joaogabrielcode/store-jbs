@@ -1,0 +1,7 @@
+Olá, {{ user.first_name|default:"cliente" }}!
+
+Confirme seu e-mail para ativar sua conta na JBS Solar:
+
+{{ verification_url }}
+
+Se você não criou esta conta, ignore esta mensagem.

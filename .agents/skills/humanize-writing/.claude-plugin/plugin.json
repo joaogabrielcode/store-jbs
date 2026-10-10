@@ -1,0 +1,21 @@
+{
+  "name": "humanize-writing",
+  "displayName": "Humanize Writing",
+  "version": "2.1.1",
+  "description": "Remove documented AI-writing patterns from generated and existing text, with register awareness and voice calibration",
+  "author": {
+    "name": "Shir Danishyar",
+    "url": "https://github.com/shir-danishyar"
+  },
+  "homepage": "https://github.com/shir-danishyar/humanize#readme",
+  "repository": "https://github.com/shir-danishyar/humanize",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "humanize",
+    "ai-detection",
+    "style",
+    "editing",
+    "skill"
+  ]
+}

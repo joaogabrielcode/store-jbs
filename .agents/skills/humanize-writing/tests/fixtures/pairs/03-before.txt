@@ -1,0 +1,13 @@
+# Transform Your Workflow With Nimbus
+
+## Why Choose Nimbus?
+
+In the ever-evolving landscape of team collaboration, Nimbus isn't just another project management tool — it's a paradigm shift. We empower teams to unlock their full potential through a seamless, intuitive, and robust platform designed for the modern workplace.
+
+- **🎯 Automation:** Pull requests close their own tickets, calendar invites become milestones, and Slack threads turn into tasks — effortlessly
+- **⚡ Speed:** Leverage lightning-fast performance — under one second to load a board of 10,000 tasks
+- **🤝 Simplicity:** A free plan for up to five people, a 30-day trial for larger teams, and transparent pricing on a single page
+
+From freelancers to Fortune 500 companies, teams trust Nimbus to navigate their most crucial projects. Our comprehensive suite of tools serves as the foundation for a truly transformative work experience.
+
+Ready to embark on your productivity journey? Sign up today and delve into a world of possibilities!

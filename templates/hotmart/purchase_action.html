@@ -1,0 +1,4 @@
+{% if course.can_purchase %}
+    <strong class="store-product-card__price">{% if course.currency == "BRL" %}R${% else %}{{ course.currency }}{% endif %} {{ course.price|floatformat:2 }}</strong>
+    <a class="button button--orange" href="{{ course.checkout_url }}" rel="external">Comprar na Hotmart</a>
+{% else %}<p>Compra indisponível no momento.</p>{% endif %}

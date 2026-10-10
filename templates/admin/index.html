@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main" class="admin-dashboard">
+    <div class="admin-dashboard__intro">
+        <div><p class="admin-eyebrow">Visão geral</p><h1>Olá, {{ user.get_short_name|default:user.username }}.</h1><p>Acompanhe a operação da Loja JBS Solar em um só lugar.</p></div>
+        <a class="admin-primary-action" href="{% url 'admin:orders_order_changelist' %}">Ver pedidos <span>→</span></a>
+    </div>
+    {% if admin_stats %}<div class="admin-stats">
+        <a class="admin-stat admin-stat--blue" href="{% url 'admin:products_product_changelist' %}"><span>Produtos ativos</span><strong>{{ admin_stats.active_products }}</strong><small>Catálogo publicado</small></a>
+        <a class="admin-stat admin-stat--orange" href="{% url 'admin:products_product_changelist' %}"><span>Estoque baixo</span><strong>{{ admin_stats.low_stock }}</strong><small>Requer atenção</small></a>
+        <a class="admin-stat admin-stat--cyan" href="{% url 'admin:orders_order_changelist' %}?status=pending_payment"><span>Aguardando pagamento</span><strong>{{ admin_stats.pending_orders }}</strong><small>Pedidos pendentes</small></a>
+        <a class="admin-stat admin-stat--navy" href="{% url 'admin:orders_order_changelist' %}?status=paid"><span>Pedidos pagos</span><strong>{{ admin_stats.paid_orders }}</strong><small>Preparar envio</small></a>
+    </div>{% endif %}
+    <div class="admin-dashboard__section-heading"><div><p class="admin-eyebrow">Operação</p><h2>Gerencie sua loja</h2></div><p>Cadastre produtos, acompanhe pedidos e mantenha o estoque atualizado.</p></div>
+    {% if app_list %}{% for app in app_list %}<section class="admin-app-card">
+        <div class="admin-app-card__heading"><h2>{% if app.app_url %}<a href="{{ app.app_url }}">{{ app.name }}</a>{% else %}{{ app.name }}{% endif %}</h2><span>{{ app.models|length }} itens</span></div>
+        <div class="admin-model-list">{% for model in app.models %}<div class="admin-model-row"><div><span class="admin-model-icon">◇</span><a href="{{ model.admin_url }}">{{ model.name }}</a></div><div class="admin-model-actions">{% if model.add_url %}<a class="admin-add-link" href="{{ model.add_url }}">Adicionar <span>＋</span></a>{% endif %}<a class="admin-change-link" href="{{ model.admin_url }}">Gerenciar <span>→</span></a></div></div>{% endfor %}</div>
+    </section>{% endfor %}{% else %}<p>Você não tem permissão para visualizar ou editar nada.</p>{% endif %}
+</div>
+{% endblock %}

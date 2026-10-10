@@ -1,0 +1,2 @@
+{% extends "accounts/auth_base.html" %}{% block title %}Link inválido | JBS Solar{% endblock %}
+{% block content %}<section class="account-section shell"><div class="account-card account-card--message"><h1>Link inválido ou expirado</h1><p>Confira se você abriu o link mais recente. Se ele expirou, entre em contato com a JBS Solar.</p><a class="button button--blue" href="{% url 'accounts:login' %}">Voltar para entrar</a></div></section>{% endblock %}

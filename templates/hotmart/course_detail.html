@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ course.name }} | JBS Solar{% endblock %}
+{% block content %}
+<section class="page-heading page-heading--store"><div class="shell"><h1>{{ course.name }}</h1></div></section>
+<section class="store-section shell">
+    {% if course.short_description %}<p>{{ course.short_description }}</p>{% endif %}
+    {{ course.description|linebreaks }}
+    {% include "hotmart/purchase_action.html" %}
+    <p>Pagamento e acesso ao curso pela Hotmart.</p>
+    <a href="{% url 'hotmart:course_list' %}">Voltar aos cursos</a>
+</section>
+{% endblock %}

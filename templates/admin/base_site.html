@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}JBS Solar Admin{% endblock %}
+
+{% block bodyclass %}{{ block.super }} admin-interface{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'admin/css/jbs-admin.css' %}?v=admin-03">
+{% endblock %}
+
+{% block branding %}
+    <a class="admin-brand" href="{% url 'admin:index' %}">
+        <img src="{% static 'images/logo-jbs-solar.png' %}" alt="JBS Solar">
+        <span><strong>JBS Solar</strong><small>Painel administrativo</small></span>
+    </a>
+{% endblock %}
+
+{% block nav-global %}
+    <a class="admin-store-link" href="{% url 'core:home' %}">Ver loja <span>↗</span></a>
+{% endblock %}

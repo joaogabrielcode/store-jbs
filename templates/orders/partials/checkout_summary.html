@@ -1,0 +1,8 @@
+<aside class="checkout-summary">
+    <p class="eyebrow"><span></span> Resumo do pedido</p>
+    {% if direct_purchase %}<p class="checkout-summary__direct-note">Esta compra inclui somente o produto escolhido. Seu carrinho permanece salvo.</p>{% endif %}
+    {% for item in items %}<div><span>{{ item.quantity }}x {{ item.product.name }}</span><strong>R$ {{ item.subtotal|floatformat:2 }}</strong></div>{% endfor %}
+    <hr>
+    <div><span>Total</span><strong>R$ {{ cart_total|floatformat:2 }}</strong></div>
+    <p>O estoque é reservado durante a criação do pedido e os valores são calculados no servidor.</p>
+</aside>

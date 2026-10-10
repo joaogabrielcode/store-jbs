@@ -1,0 +1,21 @@
+{
+  "name": "humanize",
+  "owner": {
+    "name": "Shir Danishyar",
+    "url": "https://github.com/shir-danishyar"
+  },
+  "description": "Marketplace for the humanize-writing skill",
+  "plugins": [
+    {
+      "name": "humanize-writing",
+      "source": {
+        "source": "github",
+        "repo": "shir-danishyar/humanize"
+      },
+      "description": "Remove documented AI-writing patterns from generated and existing text, with register awareness and voice calibration",
+      "version": "2.1.1",
+      "license": "MIT",
+      "homepage": "https://github.com/shir-danishyar/humanize#readme"
+    }
+  ]
+}

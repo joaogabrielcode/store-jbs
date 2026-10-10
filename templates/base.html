@@ -1,0 +1,111 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JBS Solar Store: produtos, kits e materiais para projetos de energia solar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <title>{% block title %}JBS Solar{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=design-23">
+</head>
+<body class="store-app {% block body_class %}{% endblock %}">
+    <a class="skip-link" href="#content">Ir para o conteúdo</a>
+    <header class="site-header" data-header>
+        <div class="site-header__top shell">
+            <div class="site-header__primary">
+                <a class="brand" href="{% url 'core:home' %}" aria-label="JBS Solar: início">
+                    <img src="{% static 'images/logo-jbs-solar.png' %}" alt="JBS Solar">
+                </a>
+                <form class="header-search" action="{% url 'core:home' %}" method="get" role="search">
+                    <label class="sr-only" for="header-search-input">Buscar produtos</label>
+                    <span class="header-search__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+                    </span>
+                    <input id="header-search-input" type="search" name="q" placeholder="O que você está procurando?">
+                    <button type="submit" aria-label="Buscar produtos">
+                        <svg viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+                    </button>
+                </form>
+                <div class="header-actions">
+                    <a class="header-action header-social" href="#" aria-label="Instagram da JBS Solar">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="header-icon-dot" cx="17.5" cy="6.5" r=".8"></circle></svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a class="header-action header-account" href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}" aria-label="Minha conta">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"></path></svg>
+                        <span>{% if user.is_authenticated %}Minha conta{% else %}Entrar{% endif %}</span>
+                        <svg class="header-action__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m7 9 5 5 5-5"></path></svg>
+                    </a>
+                    <a class="header-action cart-link" href="{% url 'orders:cart_detail' %}" aria-label="Carrinho com {{ cart_count }} itens" data-cart-toggle>
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 4h2l1.8 10.2h10.6L20.5 7H6.2"></path><circle cx="9" cy="18.5" r="1.2"></circle><circle cx="17" cy="18.5" r="1.2"></circle></svg>
+                        <span class="cart-link__label">Carrinho</span><b>{{ cart_count }}</b>
+                    </a>
+                    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu" data-menu-toggle>
+                        <span class="sr-only">Abrir menu</span><i aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <nav id="main-menu" class="main-nav" aria-label="Navegação principal" data-nav>
+            <div class="shell main-nav__inner">
+                <a class="{% if request.resolver_match.url_name == 'home' and not selected_category %}nav-active{% endif %}" href="{% url 'core:home' %}"{% if request.resolver_match.url_name == 'home' and not selected_category %} aria-current="page"{% endif %}>Início</a>
+                {% for category in store_menu_categories %}
+                    <a class="{% if category.highlighted %}nav-highlight{% endif %}{% if category.slug == selected_category %} nav-active{% endif %}" href="{% if category.slug == 'cursos' %}{% url 'hotmart:course_list' %}{% else %}{% url 'core:home' %}?categoria={{ category.slug }}{% endif %}"{% if category.slug == selected_category %} aria-current="page"{% endif %}>{{ category.name }}</a>
+                {% endfor %}
+                <div class="main-nav__mobile-actions">
+                    <a class="header-social" href="#" aria-label="Instagram da JBS Solar"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle class="header-icon-dot" cx="17.5" cy="6.5" r=".8"></circle></svg> Instagram</a>
+                    <a class="header-account" href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}" aria-label="Minha conta"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"></path></svg> {% if user.is_authenticated %}Minha conta{% else %}Entrar{% endif %}</a>
+                </div>
+            </div>
+        </nav>
+        {% block header %}{% endblock %}
+    </header>
+    <div class="cart-drawer-backdrop" data-cart-close hidden></div>
+    <aside class="cart-drawer" data-cart-drawer aria-labelledby="cart-drawer-title" aria-hidden="true" hidden>
+        <div class="cart-drawer__header">
+            <div>
+                <p class="eyebrow"><span></span> Seu pedido</p>
+                <h2 id="cart-drawer-title">Seu carrinho</h2>
+            </div>
+            <button class="cart-drawer__close" type="button" aria-label="Fechar carrinho" data-cart-close>×</button>
+        </div>
+        <div class="cart-drawer__content" data-cart-content>
+            {% include "orders/partials/cart_drawer_content.html" %}
+        </div>
+    </aside>
+    <button class="cart-drawer-tab" type="button" aria-label="Mostrar carrinho" data-cart-peek>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 4h2l1.8 10.2h10.6L20.5 7H6.2"></path><circle cx="9" cy="18.5" r="1.2"></circle><circle cx="17" cy="18.5" r="1.2"></circle></svg>
+        <b>{{ cart_count }}</b>
+    </button>
+    {% if messages %}<div class="store-messages" aria-live="polite">{% for message in messages %}<div class="store-message store-message--{{ message.tags|default:'info' }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    <main id="content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="shell footer-grid">
+            <div class="footer-brand">
+                <img src="{% static 'images/logo-jbs-solar.png' %}" alt="JBS Solar">
+                <p>Produtos, kits e materiais para projetos de energia solar.</p>
+            </div>
+            <div>
+                <p class="footer-label">Navegação</p>
+                <a href="{% url 'core:home' %}">Início</a>
+                <a href="{% url 'core:home' %}">Loja JBS</a>
+            </div>
+            <div>
+                <p class="footer-label">JBS Solar Store</p>
+                <p>Produtos, kits e materiais para projetos de energia solar.</p>
+            </div>
+        </div>
+        <div class="shell footer-bottom">
+            <span>© {% now "Y" %} JBS Solar</span>
+            <span>Loja JBS Solar.</span>
+        </div>
+    </footer>
+    <script src="{% static 'js/main.js' %}?v=design-09"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

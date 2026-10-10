@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Carrinho | JBS Solar{% endblock %}
+
+{% block content %}
+<section class="page-heading page-heading--store">
+    <div class="shell">
+        <p class="eyebrow eyebrow--light"><span></span> Loja JBS</p>
+        <h1>Seu <em>carrinho.</em></h1>
+        <p>Revise os produtos selecionados antes de continuar.</p>
+    </div>
+</section>
+
+<section class="cart-section shell">
+    {% if items %}
+        <div class="cart-list">
+            {% for item in items %}
+                <article class="cart-item">
+                    <div class="cart-item__image">
+                        {% if item.product.image_url %}<img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">{% else %}<span>JBS Solar</span>{% endif %}
+                    </div>
+                    <div class="cart-item__info">
+                        <p class="product-card__category">{{ item.product.category.name }}</p>
+                        <h2><a href="{% url 'products:product_detail' slug=item.product.slug %}">{{ item.product.name }}</a></h2>
+                        <p>R$ {{ item.product.price|floatformat:2 }} por unidade</p>
+                    </div>
+                    <form class="cart-item__quantity" method="post" action="{% url 'orders:cart_update' product_id=item.product.id %}">
+                        {% csrf_token %}
+                        <label for="quantity-{{ item.product.id }}">Quantidade</label>
+                        <input id="quantity-{{ item.product.id }}" type="number" name="quantity" min="0" max="{{ item.product.stock }}" value="{{ item.quantity }}">
+                        <button class="button button--blue" type="submit">Atualizar</button>
+                    </form>
+                    <div class="cart-item__subtotal">R$ {{ item.subtotal|floatformat:2 }}</div>
+                    <form method="post" action="{% url 'orders:cart_remove' product_id=item.product.id %}">
+                        {% csrf_token %}
+                        <button class="cart-remove" type="submit">Remover</button>
+                    </form>
+                </article>
+            {% endfor %}
+        </div>
+        <aside class="cart-summary">
+            <p class="eyebrow"><span></span> Resumo</p>
+            <div><span>Subtotal</span><strong>R$ {{ cart_total|floatformat:2 }}</strong></div>
+            <p>Frete e pagamento serão definidos na próxima etapa.</p>
+            <a class="button button--orange" href="{% url 'orders:checkout' %}">Continuar para checkout</a>
+        </aside>
+    {% else %}
+        <div class="empty-state cart-empty">
+            <h2>Seu carrinho está vazio</h2>
+            <p>Encontre os produtos ideais para o seu projeto solar.</p>
+            <a class="button button--orange" href="{% url 'core:home' %}">Ver produtos <span>→</span></a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

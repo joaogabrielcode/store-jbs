@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Checkout | JBS Solar{% endblock %}
+{% block body_class %}{% if direct_purchase %}store-app--direct-checkout{% endif %}{% endblock %}
+
+{% block content %}
+<section class="page-heading page-heading--store page-heading--checkout">
+    <div class="shell">
+        <p class="eyebrow eyebrow--light"><span></span> Pedido físico</p>
+        <h1>Finalizar <em>compra.</em></h1>
+        <p>Informe os dados de entrega. Após criar o pedido, você tem 24 horas para concluir a compra no Mercado Pago.</p>
+    </div>
+</section>
+
+<section class="checkout-section shell">
+    {% if direct_purchase %}{% include "orders/partials/checkout_summary.html" %}{% endif %}
+    <form class="checkout-form" method="post" action="{{ checkout_action }}">
+        {% csrf_token %}
+        <input type="hidden" name="checkout_token" value="{{ checkout_token }}">
+        {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="checkout-form__intro"><span class="checkout-step">1</span><div><h2>Seus dados</h2><p>Usaremos essas informações para confirmar o pedido.</p></div></div>
+        <div class="checkout-form__grid">
+            {% for field in form %}{% if field.name == "customer_name" or field.name == "customer_email" or field.name == "customer_phone" %}
+                <label class="checkout-field{% if field.name == 'customer_name' %} checkout-field--wide{% endif %}"><span>{{ field.label }}</span>{{ field }}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>
+            {% endif %}{% endfor %}
+        </div>
+        <div class="checkout-form__intro checkout-form__intro--address"><span class="checkout-step">2</span><div><h2>Endereço de entrega</h2><p>Digite o CEP para preencher o endereço automaticamente.</p></div></div>
+        <div class="checkout-form__grid checkout-form__grid--address">
+            {% if form.saved_address %}<label class="checkout-field checkout-field--wide"><span>{{ form.saved_address.label }}</span>{{ form.saved_address }}{% for error in form.saved_address.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>{% endif %}
+            <label class="checkout-field checkout-field--cep"><span>{{ form.shipping_postal_code.label }}</span><div class="cep-control">{{ form.shipping_postal_code }}<button class="button button--blue" type="button" id="cep-search">Buscar</button></div><small class="field-status" id="cep-status" aria-live="polite"></small>{% for error in form.shipping_postal_code.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>
+            {% for field in form %}{% if field.name == "shipping_address" or field.name == "shipping_number" or field.name == "shipping_complement" or field.name == "shipping_neighborhood" or field.name == "shipping_city" or field.name == "shipping_state" %}
+                <label class="checkout-field{% if field.name == 'shipping_address' or field.name == 'shipping_neighborhood' or field.name == 'shipping_city' %} checkout-field--wide{% endif %}"><span>{{ field.label }}</span>{{ field }}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>
+            {% endif %}{% endfor %}
+        </div>
+        <button class="button button--orange" type="submit">Ir para o Mercado Pago <span>→</span></button>
+    </form>
+    {% if not direct_purchase %}{% include "orders/partials/checkout_summary.html" %}{% endif %}
+</section>
+{% endblock %}
+
+{% block extra_scripts %}<script src="{% static 'js/checkout.js' %}?v=checkout-02" defer></script>{% endblock %}

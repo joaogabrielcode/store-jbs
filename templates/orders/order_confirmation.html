@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Pedido {{ order.number }} | JBS Solar{% endblock %}
+
+{% block content %}
+<section class="page-heading page-heading--store">
+    <div class="shell">
+        <p class="eyebrow eyebrow--light"><span></span> Pedido recebido</p>
+        <h1>Obrigado pela <em>compra.</em></h1>
+        <p>Pedido {{ order.number }}, status: {{ order.get_status_display }}.</p>
+    </div>
+</section>
+<section class="order-confirmation shell">
+    <div class="empty-state">
+        {% if order.status == "paid" or order.status == "processing" %}<h2>Pagamento confirmado</h2><p>Seu pedido foi recebido e será preparado para envio.</p>
+        {% elif order.status == "shipped" %}<h2>Pedido enviado</h2><p>O pagamento foi confirmado e seu pedido foi enviado.</p>
+        {% elif order.status == "delivered" %}<h2>Pedido entregue</h2><p>Seu pedido está marcado como entregue.</p>
+        {% elif order.status == "refunded" %}<h2>Pagamento reembolsado</h2><p>O Mercado Pago confirmou o reembolso.</p>
+        {% elif order.status == "canceled" %}<h2>Pedido cancelado</h2>
+        {% elif result == "falha" %}<h2>Pagamento não concluído</h2><p>Você pode tentar novamente pelo Mercado Pago.</p>
+        {% else %}<h2>Pagamento em processamento</h2><p>Atualizaremos o pedido assim que o Mercado Pago confirmar o pagamento.</p>{% endif %}
+        <a class="button button--blue" href="{% url 'core:home' %}">Voltar para a loja</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+<article class="store-product-card">
+    <a class="store-product-card__media" href="{% url 'hotmart:course_detail' slug=course.slug %}" aria-label="Ver {{ course.name }}">
+        {% if course.image %}<img src="{{ course.image }}" alt="{{ course.name }}" loading="lazy">{% else %}<div class="product-card__placeholder" aria-hidden="true">JBS Solar</div>{% endif %}
+    </a>
+    <div class="store-product-card__body">
+        <h3><a href="{% url 'hotmart:course_detail' slug=course.slug %}">{{ course.name }}</a></h3>
+        {% if course.short_description %}<p>{{ course.short_description }}</p>{% endif %}
+        {% include "hotmart/purchase_action.html" %}
+    </div>
+</article>

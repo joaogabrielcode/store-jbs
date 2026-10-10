@@ -1,0 +1,9 @@
+# Nimbus keeps the board up to date for you
+
+Your team already has a project tool. You're here because nobody updates it.
+
+Nimbus takes status from the places work already happens: a pull request closes its own ticket, a calendar invite becomes a milestone, and a Slack thread can turn into a task without anyone retyping it.
+
+A board with 10,000 tasks loads in under a second.
+
+The free plan covers five people. Larger teams get a 30-day trial, and pricing is on one page.

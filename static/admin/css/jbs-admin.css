@@ -1,0 +1,423 @@
+:root {
+    --admin-bg: #f7fafc;
+    --admin-surface: #ffffff;
+    --admin-text: #031d36;
+    --admin-header: #031d36;
+    --admin-muted: #6c7d89;
+    --admin-border: #dbe6ed;
+    --admin-link: #176eb0;
+    --admin-accent: #f36d3c;
+    --admin-cyan: #58c7e7;
+}
+
+body.admin-interface {
+    background: var(--admin-bg);
+    color: var(--admin-text);
+    font-family: Inter, "Segoe UI", sans-serif;
+}
+
+body.admin-interface #header {
+    min-height: 76px;
+    padding: 0 34px;
+    background: var(--admin-header);
+    color: #fff;
+}
+
+body.admin-interface #branding {
+    display: flex;
+    min-height: 76px;
+    align-items: center;
+}
+
+body.admin-interface .admin-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+body.admin-interface .admin-brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+body.admin-interface .admin-brand span {
+    display: grid;
+    gap: 2px;
+}
+
+body.admin-interface .admin-brand strong {
+    font-size: 17px;
+    letter-spacing: -.02em;
+}
+
+body.admin-interface .admin-brand small {
+    color: rgb(255 255 255 / 65%);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+body.admin-interface #user-tools {
+    padding-top: 0;
+    color: rgb(255 255 255 / 72%);
+    font-size: 11px;
+}
+
+body.admin-interface .admin-store-link {
+    display: inline-flex;
+    gap: 7px;
+    margin-left: 24px;
+    color: var(--admin-cyan) !important;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+body.admin-interface .admin-store-link span {
+    font-size: 15px;
+}
+
+body.admin-interface #nav-sidebar {
+    border-right: 1px solid var(--admin-border);
+    background: var(--admin-surface);
+}
+
+body.admin-interface #nav-sidebar a {
+    color: var(--admin-text);
+    font-size: 12px;
+}
+
+body.admin-interface #nav-sidebar a:hover {
+    color: var(--admin-accent);
+    background: #f2f8fc;
+}
+
+/* Keep Django's native layout, responsive sidebar and form structure intact. */
+body.admin-interface #content {
+    box-sizing: border-box;
+    padding: 36px 42px 70px;
+}
+
+body.admin-interface .admin-dashboard {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+body.admin-interface .admin-dashboard__intro {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+body.admin-interface .admin-eyebrow {
+    margin: 0 0 8px;
+    color: var(--admin-accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+body.admin-interface .admin-dashboard h1 {
+    margin: 0 0 8px;
+    color: var(--admin-text);
+    font-size: 34px;
+    letter-spacing: -.04em;
+}
+
+body.admin-interface .admin-dashboard__intro p:last-child,
+body.admin-interface .admin-dashboard__section-heading > p {
+    margin: 0;
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+body.admin-interface .admin-primary-action {
+    display: inline-flex;
+    min-height: 43px;
+    align-items: center;
+    gap: 14px;
+    padding: 0 18px;
+    border-radius: 5px;
+    background: var(--admin-accent);
+    color: #fff !important;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+body.admin-interface .admin-primary-action:hover {
+    background: #d9582d;
+}
+
+body.admin-interface .admin-primary-action span {
+    font-size: 17px;
+}
+
+body.admin-interface .admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 48px;
+}
+
+body.admin-interface .admin-stat {
+    display: grid;
+    min-height: 132px;
+    align-content: space-between;
+    padding: 19px;
+    border: 1px solid var(--admin-border);
+    border-top: 3px solid var(--admin-link);
+    border-radius: 7px;
+    background: var(--admin-surface);
+    color: var(--admin-text) !important;
+    text-decoration: none;
+}
+
+body.admin-interface .admin-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgb(3 29 54 / 8%);
+}
+
+body.admin-interface .admin-stat span,
+body.admin-interface .admin-stat small {
+    color: var(--admin-muted);
+    font-size: 10px;
+}
+
+body.admin-interface .admin-stat span {
+    font-weight: 700;
+}
+
+body.admin-interface .admin-stat strong {
+    font-size: 31px;
+    letter-spacing: -.04em;
+}
+
+body.admin-interface .admin-stat--orange {
+    border-top-color: var(--admin-accent);
+}
+
+body.admin-interface .admin-stat--cyan {
+    border-top-color: var(--admin-cyan);
+}
+
+body.admin-interface .admin-stat--navy {
+    border-top-color: var(--admin-header);
+}
+
+body.admin-interface .admin-dashboard__section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+body.admin-interface .admin-dashboard__section-heading h2 {
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 25px;
+}
+
+body.admin-interface .admin-dashboard__section-heading > p {
+    max-width: 350px;
+}
+
+body.admin-interface .admin-app-card {
+    margin-bottom: 18px;
+    border: 1px solid var(--admin-border);
+    border-radius: 7px;
+    background: var(--admin-surface);
+}
+
+body.admin-interface .admin-app-card__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px 20px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+body.admin-interface .admin-app-card__heading h2 {
+    margin: 0;
+    color: var(--admin-text);
+    font-size: 16px;
+}
+
+body.admin-interface .admin-app-card__heading a {
+    color: inherit;
+}
+
+body.admin-interface .admin-app-card__heading > span {
+    color: var(--admin-muted);
+    font-size: 10px;
+}
+
+body.admin-interface .admin-model-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #edf2f5;
+}
+
+body.admin-interface .admin-model-row:last-child {
+    border-bottom: 0;
+}
+
+body.admin-interface .admin-model-row > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+body.admin-interface .admin-model-row a {
+    color: var(--admin-link);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+body.admin-interface .admin-model-icon {
+    color: var(--admin-cyan);
+    font-size: 20px;
+}
+
+body.admin-interface .admin-model-actions {
+    display: flex;
+    gap: 14px;
+}
+
+body.admin-interface .admin-model-actions a {
+    font-size: 10px;
+}
+
+body.admin-interface .admin-add-link {
+    color: var(--admin-accent) !important;
+}
+
+body.admin-interface .admin-change-link span,
+body.admin-interface .admin-add-link span {
+    font-size: 14px;
+}
+
+/* Small, component-level refinements that complement Django's native admin. */
+body.admin-interface .module,
+body.admin-interface .dashboard .module {
+    border-color: var(--admin-border);
+    border-radius: 6px;
+}
+
+body.admin-interface .module h2,
+body.admin-interface .module caption {
+    background: var(--admin-header);
+}
+
+body.admin-interface .button,
+body.admin-interface input[type="submit"],
+body.admin-interface input[type="button"],
+body.admin-interface .submit-row input,
+body.admin-interface a.button {
+    border-radius: 5px;
+}
+
+body.admin-interface .object-tools a {
+    border-radius: 5px;
+    background: var(--admin-accent);
+}
+
+body.admin-interface .object-tools a:hover,
+body.admin-interface .submit-row input.default:hover {
+    background: #d9582d;
+}
+
+body.admin-interface .submit-row input.default {
+    background: var(--admin-accent);
+}
+
+@media (max-width: 900px) {
+    body.admin-interface #header {
+        padding: 0 18px;
+    }
+
+    body.admin-interface #content {
+        padding: 28px 20px 55px;
+    }
+
+    body.admin-interface .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    body.admin-interface .admin-dashboard__intro,
+    body.admin-interface .admin-dashboard__section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    body.admin-interface .admin-primary-action {
+        align-self: stretch;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    body.admin-interface #user-tools {
+        font-size: 0;
+    }
+
+    body.admin-interface .admin-store-link {
+        margin-left: 10px;
+    }
+
+    body.admin-interface .admin-stats {
+        grid-template-columns: 1fr;
+    }
+
+    body.admin-interface .admin-dashboard h1 {
+        font-size: 28px;
+    }
+
+    body.admin-interface .admin-model-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    body.admin-interface .admin-model-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Follow Django's native theme switch without sharing storefront tokens. */
+html[data-theme="dark"] body.admin-interface {
+    --admin-bg: #121212;
+    --admin-surface: #212121;
+    --admin-text: #eeeeee;
+    --admin-header: #0b1c2d;
+    --admin-muted: #d0d0d0;
+    --admin-border: #353535;
+    --admin-link: #81d4fa;
+    --admin-accent: #f58a60;
+    --admin-cyan: #8bdcf2;
+}
+
+@media (prefers-color-scheme: dark) {
+    html[data-theme="auto"] body.admin-interface {
+        --admin-bg: #121212;
+        --admin-surface: #212121;
+        --admin-text: #eeeeee;
+        --admin-header: #0b1c2d;
+        --admin-muted: #d0d0d0;
+        --admin-border: #353535;
+        --admin-link: #81d4fa;
+        --admin-accent: #f58a60;
+        --admin-cyan: #8bdcf2;
+    }
+}

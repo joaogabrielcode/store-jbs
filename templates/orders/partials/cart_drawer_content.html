@@ -1,0 +1,28 @@
+{% if cart_items %}
+    <div class="cart-drawer__items">
+        {% for item in cart_items %}
+            <article class="cart-drawer-item">
+                <div class="cart-drawer-item__image">
+                    {% if item.product.image_url %}<img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">{% else %}<span>JBS</span>{% endif %}
+                </div>
+                <div class="cart-drawer-item__details">
+                    <a href="{% url 'products:product_detail' slug=item.product.slug %}">{{ item.product.name }}</a>
+                    <span>{{ item.quantity }} × R$ {{ item.product.price|floatformat:2 }}</span>
+                </div>
+                <strong>R$ {{ item.subtotal|floatformat:2 }}</strong>
+            </article>
+        {% endfor %}
+    </div>
+    <div class="cart-drawer__footer">
+        <div><span>Subtotal</span><strong>R$ {{ cart_total|floatformat:2 }}</strong></div>
+        <a class="button button--orange" href="{% url 'orders:checkout' %}" data-cart-navigate>Continuar para checkout <span>→</span></a>
+        <a class="cart-drawer__view-cart" href="{% url 'orders:cart_detail' %}" data-cart-navigate>Ver carrinho completo</a>
+    </div>
+{% else %}
+    <div class="cart-drawer__empty">
+        <span aria-hidden="true">🛒</span>
+        <h3>Seu carrinho está vazio</h3>
+        <p>Adicione produtos para continuar.</p>
+        <a class="button button--blue" href="{% url 'core:home' %}">Ver produtos</a>
+    </div>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends "accounts/auth_base.html" %}
+
+{% block title %}Criar conta | JBS Solar{% endblock %}
+
+{% block content %}
+<section class="page-heading page-heading--store"><div class="shell"><p class="eyebrow eyebrow--light"><span></span> Minha conta</p><h1>Crie sua <em>conta.</em></h1><p>Acompanhe pedidos e agilize suas próximas compras.</p></div></section>
+<section class="account-section shell"><div class="account-card"><h2>Comece agora</h2><p class="account-card__lead">Preencha seus dados para criar seu acesso à Loja JBS.</p>
+    <form method="post" class="account-form">{% csrf_token %}{% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}<label class="account-field{% if field.name == 'accept_terms' %} account-field--check{% endif %}"><span>{{ field.label }}</span>{{ field }}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>{% endfor %}
+        <button class="button button--orange" type="submit">Criar minha conta <span>→</span></button>
+    </form>
+    <p class="account-card__footer">Já possui uma conta? <a href="{% url 'accounts:login' %}">Entrar</a></p>
+</div></section>
+{% endblock %}

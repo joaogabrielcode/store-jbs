@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Cursos | JBS Solar{% endblock %}
+{% block content %}
+<section class="page-heading page-heading--store"><div class="shell">
+    <h1>Cursos</h1><p>Compra e acesso aos cursos pela Hotmart.</p>
+</div></section>
+<section class="store-section shell">
+    {% if page_obj %}
+    <div class="store-product-grid">{% for course in page_obj %}{% include "hotmart/course_card.html" %}{% endfor %}</div>
+    {% if page_obj.has_other_pages %}<nav class="pagination" aria-label="Páginas de cursos">
+        {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}
+        <span>{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Próxima</a>{% endif %}
+    </nav>{% endif %}
+    {% else %}<div class="empty-state"><h2>Nenhum curso disponível</h2></div>{% endif %}
+</section>
+{% endblock %}

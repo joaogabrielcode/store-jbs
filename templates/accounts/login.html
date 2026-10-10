@@ -1,0 +1,16 @@
+{% extends "accounts/auth_base.html" %}
+
+{% block title %}Entrar | JBS Solar{% endblock %}
+
+{% block content %}
+<section class="page-heading page-heading--store"><div class="shell"><p class="eyebrow eyebrow--light"><span></span> Minha conta</p><h1>Boas-vindas <em>de volta.</em></h1><p>Entre para acompanhar seus pedidos e endereços.</p></div></section>
+<section class="account-section shell"><div class="account-card"><h2>Entrar</h2>
+    <form method="post" class="account-form">{% csrf_token %}{% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}<label class="account-field"><span>{{ field.label }}</span>{{ field }}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</label>{% endfor %}
+        <button class="button button--orange" type="submit">Entrar na conta <span>→</span></button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    <a class="account-card__link" href="{% url 'accounts:password_reset' %}">Esqueci minha senha</a>
+    <p class="account-card__footer">Ainda não possui conta? <a href="{% url 'accounts:signup' %}">Criar conta</a></p>
+</div></section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} | Loja JBS Solar{% endblock %}
+
+{% block content %}
+<section class="product-hero">
+    <img src="{% static 'images/painel-solar-image.png' %}" alt="" aria-hidden="true">
+    <div class="product-hero__overlay"></div>
+    <div class="shell">
+        <p class="breadcrumb">Início <span>›</span> Loja JBS <span>›</span> {{ product.category.name }} <span>›</span> {{ product.name }}</p>
+        <h1>Energia solar <em>para a sua realidade.</em></h1>
+        <p>Qualidade, economia e autonomia com os melhores produtos do mercado.</p>
+    </div>
+</section>
+
+<section class="product-purchase shell">
+    <div class="product-gallery">
+        {% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.name }}">{% else %}<div class="product-gallery__placeholder">JBS Solar</div>{% endif %}
+        <div class="product-thumbs"><span class="is-selected">Produto</span><span>Detalhes</span><span>JBS Solar</span></div>
+    </div>
+    <div class="product-information">
+        <p class="eyebrow"><span></span> {{ product.category.name }}</p>
+        <h2>{{ product.name }}</h2>
+        <p class="product-information__description">{{ product.description|default:"Descrição não informada." }}</p>
+        <div class="product-specs"><span>ϟ Geração eficiente</span><span>⌂ Para residências</span><span>♢ Alta qualidade</span></div>
+        <strong class="product-information__price">R$ {{ product.price|floatformat:2 }}</strong>
+        <p class="installment">ou 12x de <b>R$ {{ product.price|floatformat:2 }}</b> sem juros no cartão</p>
+        {% if product.stock > 0 %}<p class="availability">● Em estoque <small>Produto disponível para envio imediato.</small></p>{% else %}<p class="availability availability--off">● Indisponível no momento</p>{% endif %}
+        {% if product.product_type == "physical" %}
+            <form class="purchase-actions purchase-actions--direct" method="post" action="{% url 'orders:cart_add' product_id=product.id %}" data-cart-add>
+                {% csrf_token %}
+                <label class="quantity-control"><span class="sr-only">Quantidade</span><input type="number" name="quantity" min="1" max="{{ product.stock }}" value="1" {% if product.stock <= 0 %}disabled{% endif %}></label>
+                <button class="button button--orange" type="submit" formaction="{% url 'orders:buy_now' product_id=product.id %}" data-buy-now {% if product.stock <= 0 %}disabled{% endif %}>Comprar agora</button>
+                <button class="button button--cart" type="submit" {% if product.stock <= 0 %}disabled{% endif %}>Adicionar ao carrinho</button>
+            </form>
+        {% else %}
+            <p class="availability">Este curso será vendido pela Hotmart.</p>
+        {% endif %}
+        <a class="whatsapp-button" href="#">◉ Falar no WhatsApp <small>Tire suas dúvidas com um especialista</small></a>
+        <div class="purchase-trust"><span>♢ Compra 100% segura</span><span>▱ Entrega para todo o Brasil</span><span>♧ Suporte especializado</span></div>
+    </div>
+</section>
+
+<section class="product-benefits">
+    <div class="shell">
+        <p class="eyebrow"><span></span> Principais benefícios</p>
+        <h2>Por que escolher este produto?</h2>
+        <div class="trust-grid"><div><span>♧</span><strong>Economia real</strong><p>Reduza seus custos e invista em eficiência.</p></div><div><span>⌁</span><strong>Energia limpa e renovável</strong><p>Contribua com um futuro mais sustentável.</p></div><div><span>⚙</span><strong>Produto completo</strong><p>Qualidade e praticidade para sua instalação.</p></div><div><span>♢</span><strong>Marca de confiança</strong><p>Equipamentos selecionados pela JBS Solar.</p></div></div>
+    </div>
+</section>
+
+<section class="product-description-section shell">
+    <div><p class="eyebrow"><span></span> Detalhes do produto</p><h2>Descrição do produto</h2>{% if product.description %}{{ product.description|linebreaks }}{% else %}<p>Uma solução pensada para quem busca qualidade, segurança e bom desempenho no projeto solar.</p>{% endif %}</div>
+    <aside><span>⌂ Indicado para projetos residenciais</span><span>⚙ Equipamento de alta qualidade</span><span>♢ Garantia e suporte JBS Solar</span><span>⌁ Solução sustentável e econômica</span></aside>
+</section>
+{% endblock %}
